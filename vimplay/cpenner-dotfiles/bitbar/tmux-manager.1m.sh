@@ -1,0 +1,1 @@
+/Users/chris/dev/bitbar-tmux-manager/tmux-manager.1m.sh

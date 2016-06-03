@@ -1,0 +1,243 @@
+;-*-Emacs-Lisp-*-
+;; Package management:
+(require 'package)
+
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+
+;;; On-demand installation of packages
+(defun require-package (package &optional min-version no-refresh)
+  "Install given PACKAGE, optionally requiring MIN-VERSION.
+If NO-REFRESH is non-nil, the available package lists will not be
+re-downloaded in order to locate PACKAGE."
+  (if (package-installed-p package min-version)
+      t
+    (if (or (assoc package package-archive-contents) no-refresh)
+        (package-install package)
+      (progn
+        (package-refresh-contents)
+        (require-package package min-version t)))))
+
+(defun maybe-require-package (package &optional min-version no-refresh)
+  "Try to install PACKAGE, and return non-nil if successful.
+In the event of failure, return nil and print a warning message.
+Optionally require MIN-VERSION.  If NO-REFRESH is non-nil, the
+available package lists will not be re-downloaded in order to
+locate PACKAGE."
+  (condition-case err
+      (require-package package min-version no-refresh)
+    (error
+     (message "Couldn't install package `%s': %S" package err)
+     nil)))
+
+(setq package-enable-at-startup nil)
+(package-initialize)
+
+;; Check all packages are installed on startup:
+(defun ensure-package-installed (&rest packages)
+  "Assure every package is installed, ask for installation if it’s not.
+Return a list of installed packages or nil for every skipped package."
+  (mapcar
+   (lambda (package)
+     (if (package-installed-p package)
+         nil
+       (package-install package)))
+   packages))
+
+;; Make sure to have downloaded archive description.
+(or (file-exists-p package-user-dir)
+    (package-refresh-contents))
+
+;; Activate installed packages
+(package-initialize)
+
+;; Plugins to check
+(ensure-package-installed 'iedit 
+                          'magit
+                          'helm
+                          'projectile
+                          'evil
+                          'zenburn-theme
+                          'yasnippet
+                          ; 'wgrep-ag
+                          ; 'web-mode
+                          ; 'w3m
+                          'sublime-themes
+                          ; 'powerline-evil
+                          ; 'mmm-mode
+                          ; 'markdown-mode
+                          'magit
+                          ; 'highlight-symbol
+                          'helm-projectile
+                          'guide-key
+                          ; 'gtags
+                          ; 'fullframe
+                          'flycheck
+                          ; 'exec-path-from-shell
+                          'evil-surround
+                          'evil-numbers
+                          'evil-leader
+                          ; 'evil-jumper
+                          'evil-indent-textobject
+                          ; 'evil-nerd-commenter
+                          'emmet-mode
+                          ; 'diminish
+                          ; 'dictionary
+                          ; 'circe
+                          ; 'avy
+                          'ag
+                          'solarized-theme
+                          )
+
+;; Other configuration:
+
+;; Silence bell:
+(setq ring-bell-function 'ignore)
+
+;; color-scheme
+;; Add theme load path.
+; (add-to-list 'custom-theme-load-path (expand-file-name "themes" user-emacs-directory))
+;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+; (require 'emacs-color-themes)
+(load-theme 'solarized-dark t)
+
+;; Custom defined stuff
+(add-to-list 'load-path (expand-file-name "~/dotfiles/emacs.d/config"))
+
+
+;; Add programs from brew etc.
+(add-to-list 'exec-path "/usr/local/bin")
+
+;; Essential settings.
+(setq inhibit-splash-screen t
+      inhibit-startup-message t
+      inhibit-startup-echo-area-message t)
+;; No gui menus
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+
+;; nice scrolling.
+(when (boundp 'scroll-bar-mode)
+  (scroll-bar-mode -1))
+
+;; Show matching parens
+(show-paren-mode 1)
+
+;; Show wrapped lines
+(setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+
+;; Use logical lines not visual lines.
+(global-visual-line-mode nil)
+
+;; Don't warn me about large files.
+(setq large-file-warning-threshold nil)
+
+(require 'project-root)
+(require 'init-evil)
+
+; (maybe-require-package 'ag)
+; (maybe-require-package 'auto-complete)
+; (maybe-require-package 'emmet-mode)
+; (maybe-require-package 'flycheck)
+; (maybe-require-package 'helm)
+; (maybe-require-package 'helm-projectile)
+; (maybe-require-package 'highlight-symbol)
+; (maybe-require-package 'magit)
+; (maybe-require-package 'markdown-mode)
+; (maybe-require-package 'projectile)
+; (maybe-require-package 'sublime-themes)
+; (maybe-require-package 'web-mode)
+; (maybe-require-package 'yasnippet)
+; (maybe-require-package 'zenburn-theme)
+
+(defvar show-paren-delay 0
+  "Delay (in seconds) before matching paren is highlighted.")
+
+;; Guide Key
+(maybe-require-package 'guide-key)
+;;; Always use guide-key mode,
+(guide-key-mode 1)
+(setq-default guide-key/guide-key-sequence t
+              guide-key/idle-delay 0.5)
+
+; No backups
+(setq make-backup-files nil)
+
+
+;; Autocompletion
+(global-auto-complete-mode t)
+(maybe-require-package 'auto-complete-config)
+(ac-config-default)
+(ac-set-trigger-key "TAB")
+(ac-set-trigger-key "<tab>")
+(setq-default ac-dwim nil)
+(setq-default ac-use-menu-map t)
+(define-key ac-menu-map (kbd "<backtab>") 'ac-previous)
+
+;; Projectile
+; (maybe-require-package 'helm-projectile)
+  ; "Tell Projectile to cache project file lists.")
+(projectile-global-mode)
+(setq projectile-completion-system 'helm)
+(helm-projectile-on)
+(setq projectile-enable-caching t)
+(setq projectile-require-project-root nil)
+(setq helm-ff-transformer-show-only-basename nil
+      helm-ls-git-show-abs-or-relative 'relative)
+
+;; Helm
+;; Use Helm all the time.
+(setq helm-buffers-fuzzy-matching t)
+(helm-mode 1)
+; (define-key helm-find-files-map (kbd "C-k") 'helm-find-files-up-one-level)
+
+;;; Magit mode (which does not open in evil-mode):
+; (add-hook 'magit-mode-hook
+;           (lambda ()
+;             (define-key magit-mode-map (kbd ",o") 'delete-other-windows)))
+
+;; Flycheck mode:
+; (add-hook 'flycheck-mode-hook
+;           (lambda ()
+;             (evil-define-key 'normal flycheck-mode-map (kbd "]e") 'flycheck-next-error)
+;             (evil-define-key 'normal flycheck-mode-map (kbd "[e") 'flycheck-previous-error)))
+
+;; Org mode:
+; (evil-leader/set-key-for-mode 'org-mode
+;   "t"  'org-set-tags
+;   "p"  '(lambda ()
+;          (interactive)
+;          (org-insert-property-drawer))
+;   "d"  'org-deadline
+;   "a"  'org-agenda
+;   "ns" 'org-narrow-to-subtree
+;   "$"  'org-archive-subtree)
+
+; (add-hook 'org-mode-hook
+;           (lambda ()
+;             (evil-define-key 'normal org-mode-map (kbd "TAB") 'org-cycle)
+;             (evil-define-key 'normal org-mode-map (kbd "C-\\") 'org-insert-heading)
+;             (evil-define-key 'insert org-mode-map (kbd "C-\\") 'org-insert-heading)
+;             (auto-fill-mode)
+
+
+
+;; Automatically set:
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "3dafeadb813a33031848dfebfa0928e37e7a3c18efefa10f3e9f48d1993598d3" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
+ '(ls-lisp-verbosity nil)
+ '(vc-follow-symlinks t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

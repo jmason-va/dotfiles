@@ -1,0 +1,9 @@
+.DS_Store
+.tags
+tags
+.ropeproject/
+.env
+.env-leave
+.venv
+.pyc
+.idea/

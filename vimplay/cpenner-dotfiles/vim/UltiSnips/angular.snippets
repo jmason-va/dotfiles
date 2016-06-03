@@ -1,0 +1,27 @@
+snippet link "Angular Link function" b
+link : function (scope, element, attrs) {
+    $1
+}
+endsnippet
+
+snippet directive "Angular directive" w
+directive('$1', [function(){
+    return {
+        restrict: "E",
+        link: function (scope, element, attrs) {
+            $2
+        },
+        template: ""
+    }
+}]);
+endsnippet
+
+snippet module "ang module" w
+module("$1", []);
+endsnippet
+
+snippet controller "ang controller" w
+controller("$1", ["$scope", function($scope) {
+    $2
+}]);
+endsnippet

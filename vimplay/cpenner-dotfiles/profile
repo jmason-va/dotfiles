@@ -1,0 +1,62 @@
+#!/bin/sh
+source ~/dotfiles/functions
+
+source ~/dotfiles/paths
+source ~/dotfiles/python-setup
+
+export EDITOR=vim
+
+# screen-256color disables highlighting in less...
+export TERM=xterm-256color
+# export TERM=screen-256color
+
+# Aliases
+alias tmux="TERM=screen-256color-bce tmux"
+alias cl=clear
+alias starwars="telnet towel.blinkenlights.nl"
+alias gae-update="appcfg.py update . "
+alias gae-dev="dev_appserver.py app.yaml"
+alias o="open"
+alias o.="open ."
+alias cd..="cd .."
+alias spim="spim -file"
+alias ctags="ctags -R -f .tags --exclude='.git'"
+alias sp="source ~/.profile"
+alias src="source ~/.zshrc"
+alias killservers="pkill -f 'dev_appserver\.py'"
+alias info="info --vi-keys"
+alias ls="ls -G"
+alias l="ls -la"
+alias sl="ls -G"
+alias 'pip install'='pip install --user'
+alias L="| less"
+alias t="tmuxinator"
+
+alias profile="$EDITOR ~/dotfiles/profile"
+alias zshrc="$EDITOR ~/dotfiles/zshrc"
+alias vimrc="$EDITOR ~/dotfiles/vimrc"
+alias df="cd ~/dotfiles/"
+alias -- -="cd -"
+
+if type nvim &> /dev/null; then
+    alias vim="nvim"
+    export EDITOR=nvim
+fi
+
+alias p='python'
+
+# git shortcuts
+# alias git='hub'
+alias g='git'
+alias gs='git status'
+alias gl='git l'
+alias gc='git checkout'
+
+# Respect gitignore, etc.
+export FZF_DEFAULT_COMMAND='ag -g ""'
+source ~/dotfiles/fzf-extras.sh
+
+# Allow local overrides
+if [ -f ~/.localrc ]; then
+    source ~/.localrc
+fi

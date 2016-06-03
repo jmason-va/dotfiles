@@ -1,0 +1,43 @@
+VIM (work on using these):
+]m			Go to [count] next start of a method (for Java or
+			similar structured language).  When not before the
+			start of a method, jump to the start or end of the
+			class.  When no '{' is found after the cursor, this is
+			an error.  |exclusive| motion. {not in Vi}
+						*]M*
+]M			Go to [count] next end of a method (for Java or
+			similar structured language).  When not before the end
+			of a method, jump to the start or end of the class.
+			When no '}' is found after the cursor, this is an
+			error. |exclusive| motion. {not in Vi}
+
+gi
+command mode <c-f>
+:find
+:grep
+use / as operator, e.g. d/search
+
+use qA to APPEND to a macro.
+
+Use <c-r><c-w> to insert word under cursor. Also works with incremental search.
+
+Write a plugin to build up and traverse an 'insert-list' like a changelist, but
+only for inserts.
+
+q/ opens up previous searches for editing/use
+
+:S for Find and replace
+
+Open docs with gK
+
+gV highlight last inserted text
+
+Use - as $.
+
+USE FZF!!
+c : search chrome history
+fe : edit files in this directory
+v : recent vim files search
+fd : fuzzy directory search
+cdf : cd into file's directory
+fo : fuzzy open

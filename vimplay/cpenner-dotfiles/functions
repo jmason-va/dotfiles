@@ -1,0 +1,153 @@
+#! /bin/sh
+onprojectenter(){
+    root=`getprojdir`
+    name=`basename $root`
+    # workon $name > /dev/null 2>&1
+    if [ !$TMUX ]; then
+        tmuxinator start $name root=$root name=$name
+    fi
+}
+
+onprojectleave(){
+    deactivate > /dev/null 2>&1
+}
+
+gitroot(){
+    echo `git rev-parse --show-toplevel`
+}
+
+getprojdir(){
+    if [ `gitroot 2> /dev/null` ]; then
+        echo `gitroot`
+    else
+        echo `pwd`
+    fi
+}
+
+newproj(){
+    projdir=`getprojdir`
+    ln -s ./default.yml ~/.tmuxinator/"`basename $projdir`".yml
+    echo onprojectenter > `getprojdir`/.env
+    echo onprojectleave > `getprojdir`/.env-leave
+}
+
+mkenv(){
+    # Initialize the virtualenv
+    root=`getprojdir`
+    mkvirtualenv -a $root `basename $root`
+}
+
+scratch(){
+    cur_dir="$HOME/scratch"
+    new_dir="/tmp/scratch-`date +'%s'`"
+    mkdir -p $new_dir
+    ln -nfs $new_dir $cur_dir
+    cd $cur_dir
+    echo "New scratch! at `date`"
+}
+
+tree(){
+    command tree -Cr --dirsfirst "$@" | less -FRX
+}
+
+com(){
+    message="$(git rev-parse --abbrev-ref HEAD): $( echo $@)"
+    git commit -m "$message"
+}
+
+# Move file to a backup ".old" version
+old() {
+    mv "$1"{,.old}
+}
+
+# Move file to a backup ".bak" version
+bak() {
+    mv "$1"{,.bak}
+}
+
+unbak() {
+    mv "$1"{.bak,}
+}
+
+simpleserver() {
+    python -m SimpleHTTPServer 7777
+}
+
+# Brilliance from 
+# https://github.com/jamestomasino/dotfiles/blob/master/bash/.functions
+
+# Use the right extraction method based on file extension
+function extract() {
+    if [ -f "$1" ] ; then
+        case $1 in
+            *.tar.bz2)   tar xvjf "$1"     ;;
+            *.tar.gz)    tar xvzf "$1"     ;;
+            *.bz2)       bunzip2 "$1"      ;;
+            *.rar)       unrar x "$1"      ;;
+            *.gz)        gunzip "$1"       ;;
+            *.tar)       tar xvf "$1"      ;;
+            *.tbz2)      tar xvjf "$1"     ;;
+            *.tgz)       tar xvzf "$1"     ;;
+            *.zip)       unzip "$1"        ;;
+            *.Z)         uncompress "$1"   ;;
+            *.7z)        7z x "$1"         ;;
+            *)           echo "'$1' cannot be extracted via >extract<" ;;
+        esac
+    else
+        echo "'$1' is not a valid file!"
+    fi
+}
+
+# Swap 2 filenames around, if they exist
+function swap() { 
+    local TMPFILE=tmp.$$
+
+    [ $# -ne 2 ] && echo "swap: 2 arguments needed" && return 1
+    [ ! -e "$1" ] && echo "swap: $1 does not exist" && return 1
+    [ ! -e "$2" ] && echo "swap: $2 does not exist" && return 1
+
+    mv "$1" $TMPFILE
+    mv "$2" "$1"
+    mv $TMPFILE "$2"
+}
+
+# https://github.com/jamestomasino/dotfiles/blob/master/bash/.functions
+# jump to root folder of git repo
+function cdroot {
+    LOCAL_DIR=$(git rev-parse --show-toplevel)
+    LOCAL_DIR=${LOCAL_DIR:-.}
+    cd "$LOCAL_DIR"
+}
+
+# find todo notes in current project
+function todos {
+    #local m=$(trimspace $(git diff --numstat 2> /dev/null | wc -l))
+    LOCAL_DIR=$(git rev-parse --show-toplevel 2> /dev/null)
+    LOCAL_DIR=${LOCAL_DIR:-.}
+    find "${LOCAL_DIR}" -type f -exec grep -H -n '(TODO|FIX(ME)?):' {} \; 2> /dev/null 
+}
+
+# Create a horizontal rule, hr style
+function hr() {
+    set -f
+    if [[ -n $1 ]]; then
+        space_character=$( echo "$1" | head -c 1)
+    else
+        space_character='='
+    fi
+    
+    for i in $(seq 1 "$(tput cols)");
+    do
+        echo -n "${space_character}";
+    done
+
+    echo ""
+}
+
+function isplaintext() {
+    if [[ `file $1` =~ 'text' ]]; then
+        return 0
+    else
+        return 1
+    fi
+}

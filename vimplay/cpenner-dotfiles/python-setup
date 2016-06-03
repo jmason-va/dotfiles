@@ -1,0 +1,33 @@
+#!/bin/sh
+# for virtualenv
+export WORKON_HOME=~/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
+
+export CLOUDSDK_ROOT_DIR="$HOME/google-cloud-sdk"
+export APPENGINE_HOME="${CLOUDSDK_ROOT_DIR}/platform/appengine-java-sdk"
+export GAE_SDK_ROOT="${CLOUDSDK_ROOT_DIR}/platform/google_appengine"
+
+# The next line enables Java libraries for Google Cloud SDK
+export CLASSPATH="${APPENGINE_HOME}/lib":${CLASSPATH}
+
+# The next line enables Python libraries for Google Cloud SDK
+export PYTHONPATH=${GAE_SDK_ROOT}:${PYTHONPATH}
+
+# * OPTIONAL STEP *
+# If you wish to import all Python modules, you may iterate in the directory
+# tree and import each module.
+#
+# * WARNING *
+# Some modules have two or more versions available (Ex. django), so the loop
+# will import always its latest version.
+# for module in ${GAE_SDK_ROOT}/lib/*; do
+#   if [ -r ${module} ]; then
+#     PYTHONPATH=${module}:${PYTHONPATH}
+#   fi
+# done
+# unset module
+
+# python path changes (for bpython)
+export PYTHONPATH=$PYTHONPATH:/Library/Python/2.7/site-packages:$HOME/Library/Python/2.7/site-packages
+export PYTHONPATH=/usr/local/google_appengine:$GAE_SDK_ROOT:$PYTHONPATH
+export BASEPYTHONPATH="$PYTHONPATH"

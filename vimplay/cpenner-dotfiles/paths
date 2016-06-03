@@ -1,0 +1,19 @@
+#!/bin/sh
+export PATH=$PATH:/usr/local/opt/go/libexec/bin
+export GOPATH=$HOME/dev/golang
+export PATH=$PATH:$GOPATH/bin
+
+if [ -d ~/bin ]; then
+    PATH=~/bin:$PATH:
+fi
+
+if [ -d /Library/TeX/texbin ]; then
+    PATH=$PATH:/Library/TeX/texbin
+fi
+
+
+# if [ -d /Applications/Racket\ v6.1/bin ]; then
+#     PATH=$PATH:'/Applications/Racket\ v6.1/bin'
+# fi
+
+export PATH

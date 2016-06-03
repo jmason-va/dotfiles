@@ -1,0 +1,11 @@
+snippet task "gulp task" w
+gulp.task('$1', function(){
+    return gulp.src('$2')
+        .pipe($3)
+        .pipe(gulp.dest('$4'))
+});
+endsnippet
+
+snippet watch "gulp watch" w
+gulp.watch('$1', ['$2']);
+endsnippet

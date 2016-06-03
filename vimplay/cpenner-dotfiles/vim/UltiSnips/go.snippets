@@ -1,0 +1,52 @@
+snippet fn "function" w
+func ($1) $2($3)$4{
+    $5
+};
+endsnippet
+
+snippet const "constructor" w
+// New$1 constructor
+func New$1() $1 {
+	return $1{}
+}
+endsnippet
+
+snippet act "action" w
+// New$1 Action
+func New$1() $1 {
+	act := $1{}
+	act.kind = $1Action
+	return act
+}
+endsnippet
+
+snippet apply "Apply an action" w
+func (action $1) Apply(state AppState, actions chan<- Action) AppState {
+	$2
+	return state
+}
+endsnippet
+
+snippet test "Test" w
+func Test$1(t *testing.T) {
+	$2
+	if $3 {
+		t.Fail()
+	}
+}
+endsnippet
+
+snippet testaction "Test" w
+func Test$1(t *testing.T) {
+	fileNames := []string{"1"}
+	state := NewAppState(fileNames, 10)
+	actions := make(chan Action, 100)
+	state = $2{}.Apply(state, actions)
+	action := <- actions
+	if $3{
+		t.Fail()
+	}
+}
+endsnippet
+
+
