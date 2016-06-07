@@ -84,7 +84,7 @@ alias p='python'
 alias g='git'
 alias gs='git status'
 alias gl='git l'
-alias gc='git checkout'
+alias gc='git commit -a -m'
 
 alias zs="source ~/.zshrc"
 alias goals="vim ~/me/goals.md"
