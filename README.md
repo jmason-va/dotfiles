@@ -26,8 +26,10 @@ jmason dotfiles
 * converting markdown to html with accompanying css file
 * author things for vim (spellcheck etc)
 * minimap on right side
-
+* linking to other local files from readme
 
 references
 https://github.com/evansalter/dotfiles
 https://github.com/ChrisPenner/dotfiles
+https://dotfiles.github.io/
+https://github.com/webpro/awesome-dotfiles
