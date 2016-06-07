@@ -1,0 +1,13 @@
+## week of june 6 to june 13
+- working dotfiles folder
+  - install file
+  - vimrc
+  - profile
+- book on github
+  - :X to encrypt/decrypt it on open
+  - autoencrypt before going to git
+  - files in markdown format
+  - publish to html files
+  - html files go to separate directory
+  - css on html files
+  - one line at top/bottom of file for setup
