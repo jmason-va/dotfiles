@@ -79,13 +79,7 @@ fi
 
 alias p='python'
 
-# git shortcuts
-# alias git='hub'
-alias g='git'
-alias gs='git status'
-alias gl='git l'
-alias gc='git commit -a -m'
-
+alias rb="rm *~"
 alias zs="source ~/.zshrc"
 alias goals="vim ~/me/goals.md"
 alias learnlog="vim ~/me/learnlog.md"

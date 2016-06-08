@@ -50,6 +50,7 @@ filetype plugin indent on    " required
 
 "custom mappings
 nnoremap - :! pandoc % -s -o %:r.html<cr>`
+:imap kj <Esc>
 let g:Powerline_symbols = 'fancy'
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
 syntax on
