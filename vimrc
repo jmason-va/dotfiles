@@ -163,12 +163,5 @@ if has('langmap') && exists('+langnoremap')
   set langnoremap
 endif
 
-
-" Add optional packages.
-"
-" The matchit plugin makes the % command work better, but it is not backwards
-" compatible.
-packadd matchit
-
 set number
 set backupdir=./.backup,.,/tmp
