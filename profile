@@ -16,17 +16,17 @@ export DOCKER_MACHINE_NAME="vbootstrap-vm"
 # Run this command to configure your shell: 
 # eval "$(docker-machine env vbootstrap-vm)"
 
+#fun alias'
+alias nomnom='gulp styles'
 
 #coffee commands
-alias coffee='python ~/design/caffeinate/coffee.py menu '
-alias coffee-+='python ~/design/caffeinate/coffee.py add_coffee'
-alias coffee--='python ~/design/caffeinate/coffee.py subtract_cup'
-alias coffee-c='python ~/design/caffeinate/coffee.py new_day'
-alias coffee-d='python ~/design/caffeinate/coffee.py clear_all'
-alias coffee-t='python ~/design/caffeinate/coffee.py get_totals'
-alias coffee-w='python ~/design/caffeinate/coffee.py add_water'
-
-
+alias c='python ~/design/caffeinate/coffee.py menu '
+alias c+='python ~/design/caffeinate/coffee.py add_coffee'
+alias c-='python ~/design/caffeinate/coffee.py subtract_cup'
+alias c-c='python ~/design/caffeinate/coffee.py new_day'
+alias c-a='python ~/design/caffeinate/coffee.py clear_all'
+alias c-t='python ~/design/caffeinate/coffee.py get_totals'
+alias w+='python ~/design/caffeinate/coffee.py add_water'
 
 #github commands
 alias gc="git commit -a -m"
@@ -37,8 +37,6 @@ alias ga='git add .'
 alias sc='source ~/.bash_profile'
 alias bp='sublime ~/dotfiles/profile'
 alias brc='sublime ~/dotfiles/bashrc'
-
-
 
 alias hotkeys='printf "⌘  Command\n⇧  Shift\n⌥  Option\n⌃  Control\n⇪  Caps Lock\nFn Function\n"'
 alias chrome="open /Applications/Google\ Chrome.app/"
@@ -52,7 +50,6 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
-
 # Aliases
 alias cl=clear
 alias sp="source ~/.bash_profile"
@@ -62,7 +59,6 @@ alias info="info --vi-keys"
 alias ls="ls -G"
 alias l="ls -la"
 alias sl="ls -G"
-alias 'pip install'='pip install --user'
 alias L="| less"
 alias t="tmuxinator"
 

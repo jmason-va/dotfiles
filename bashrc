@@ -14,8 +14,31 @@ source ./bashprofile
  alias CYAN='export PS1="\e[96m|\e[00m \w \e[96m|\e[00m >"'
  alias WHITE='export PS1="\e[01;37m| \w |\e[00m >"'
  alias METAL='export PS1="\e[0;33m[\e[1;90m\w\e[0;33m] \e[1;34m> \e[0;33m"'
+ alias COOL='export PS1="\e[0;33m\e[47m[\e[1;90m\w\e[0;33m] \e[1;34m> \e[0;33m"'
+ alias COOLEST='export PS1="\e[0;34m\e[47m\u@\h \w> \e[m\e[40m"'
+ alias JOHN='export PS1="\e[41m\e[1m * \e[1;31m\e[40m>\e[47m\e[1;30m\w\e[m>\e[41m\e[1m * \e[1;31m\e[40m>\e[m"'
 
-GREY
+ # \e[41m
+ # \e[1m
+ # * 
+ # \e[1;31m
+ # \e[40m 
+ # >
+ # \e[47m
+ # \e[1;30m
+ # \w
+ # \e[m 
+ # >
+ # \e[41m
+ # \e[1m
+ # * 
+ # \e[1;31m
+ # \e[40m 
+ # >
+ # \e[m
+ # 
+METAL
+
 # a black
 # b red
 # c green
