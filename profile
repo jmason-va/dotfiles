@@ -1,14 +1,23 @@
 #!/bin/sh
 if [ -f ./bashrc ]; then . ./bashrc; fi
+export PATH=$PATH:~/bin
+
+
+#testing, may need to delete THIS LINE IF THERE ARE PROBLEMS
+PATH=$PATH:$HOME/bin
+
+
 
 # screen-256color disables highlighting in less...
 export TERM=xterm-256color
+
 #goole cloud sdk
-source '/Users/jmason/google-cloud-sdk/path.bash.inc'
+# source '/Users/jmason/google-cloud-sdk/path.bash.inc'
 
 #autojump
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
+#docker setup
 export DOCKER_TLS_VERIFY="1"
 export DOCKER_HOST="tcp://192.168.99.100:2376"
 export DOCKER_CERT_PATH="/Users/jmason/.docker/machine/machines/vbootstrap-vm"
@@ -16,8 +25,9 @@ export DOCKER_MACHINE_NAME="vbootstrap-vm"
 # Run this command to configure your shell: 
 # eval "$(docker-machine env vbootstrap-vm)"
 
-#fun alias'
-alias nomnom='gulp styles'
+#book commands
+alias book='chrome ~/writing/published/index.html; ~/writing/htmlify/publish.sh styles.css'
+alias book-light='chrome ~/writing/published/index.html; ~/writing/htmlify/publish.sh styles-light.css'
 
 #coffee commands
 alias c='python ~/design/caffeinate/coffee.py menu '
@@ -77,5 +87,10 @@ alias p='python'
 
 alias rb="rm *~"
 alias zs="source ~/.zshrc"
-alias goals="vim ~/me/goals.md"
-alias learnlog="vim ~/me/learnlog.md"
+alias sub='open -a "/Applications/Sublime Text.app"'
+alias sublime='open -a "/Applications/Sublime Text.app"'
+alias profile='sublime ~/dotfiles/profile'
+
+#adding path for go, could probably delete this later if i dont look into it more
+export PATH=$PATH:/usr/local/go/bin
+

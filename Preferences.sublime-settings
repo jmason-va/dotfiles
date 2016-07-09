@@ -1,0 +1,23 @@
+{
+	"always_show_minimap_viewport": true,
+	"auto_complete_commit_on_tab": false,
+	"auto_find_in_selection": true,
+	"bold_folder_labels": true,
+	"caret_style": "phase",
+	"color_scheme": "Packages/User/Color Highlighter/themes/Monokai Extended Bright.tmTheme",
+	"draw_minimap_border": false,
+	"ensure_newline_at_eof_on_save": true,
+	"font_size": 12,
+	"highlight_line": true,
+	"highlight_modified_tabs": true,
+	"ignored_packages":
+	[
+	],
+	"save_on_focus_lost": true,
+	"shift_tab_unindent": true,
+	"show_line_endings": true,
+	"spell_check": true,
+	"tab_size": 2,
+	"translate_tabs_to_spaces": true,
+	"use_simple_full_screen": true
+}

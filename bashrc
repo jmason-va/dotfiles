@@ -1,4 +1,3 @@
-source ./bashprofile
 
 # Prompt colour changing (google bash ps1 variables for more options)
 #  Prompt colour changing

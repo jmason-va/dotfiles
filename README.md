@@ -5,6 +5,8 @@ jmason dotfiles
 
 * download different terminal
     - https://www.iterm2.com/
+* vundle
+    - 
 * download zsh
     - https://github.com/carlcarl/powerline-zsh
 * patched fonts for terminal
