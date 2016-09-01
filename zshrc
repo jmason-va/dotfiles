@@ -36,3 +36,9 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 source $ZSH/oh-my-zsh.sh
 
 
+
+# The next line updates PATH for the Google Cloud SDK.
+source '/Users/jmason/Downloads/google-cloud-sdk/path.zsh.inc'
+
+# The next line enables shell command completion for gcloud.
+source '/Users/jmason/Downloads/google-cloud-sdk/completion.zsh.inc'

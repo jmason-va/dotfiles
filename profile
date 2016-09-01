@@ -29,6 +29,8 @@ export DOCKER_MACHINE_NAME="vbootstrap-vm"
 alias book='chrome ~/writing/published/index.html; ~/writing/htmlify/publish.sh styles.css'
 alias book-light='chrome ~/writing/published/index.html; ~/writing/htmlify/publish.sh styles-light.css'
 
+#htmlify
+alias htmlify='~/writing/htmlify/publish.sh publish ~/writing/deus ~/writing/published/styles.css ~/writing/deus ~/writing/published/'
 #coffee commands
 alias c='python ~/design/caffeinate/coffee.py menu '
 alias c+='python ~/design/caffeinate/coffee.py add_coffee'
